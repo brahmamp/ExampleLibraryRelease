@@ -1,4 +1,4 @@
-package io.github.brahmamp
+package io.github.example
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import io.github.brahmamp.ui.theme.ExampleLibraryReleaseTheme
+import io.github.example.ui.theme.ExampleLibraryReleaseTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

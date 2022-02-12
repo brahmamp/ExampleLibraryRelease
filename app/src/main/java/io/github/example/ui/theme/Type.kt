@@ -1,4 +1,4 @@
-package io.github.brahmamp.ui.theme
+package io.github.example.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
