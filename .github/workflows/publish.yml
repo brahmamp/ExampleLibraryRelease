@@ -35,7 +35,7 @@ jobs:
           ./gradlew publish --no-daemon --no-parallel
           echo "Published✅"
           echo "Releasing repository...🚀"
-          ./gradlew closeAndReleaseRepository --repository iogithubbrahmamp-1007
+          ./gradlew closeAndReleaseRepository --repository iogithubbrahmamp-1008
           echo "Released✅"
         env:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ github.event.inputs.versionName }}
