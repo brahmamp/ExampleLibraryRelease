@@ -35,7 +35,7 @@ jobs:
           ./gradlew publish --no-daemon --no-parallel
           echo "Published✅"
           echo "Releasing repository...🚀"
-          ./gradlew closeAndReleaseRepository --repository iogithubbrahmamp-1012
+          ./gradlew closeAndReleaseRepository --repository iogithubbrahmamp-1013
           echo "Released✅"
         env:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ github.event.inputs.versionName }}
@@ -62,6 +62,6 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           tag_name: ${{ github.event.inputs.versionName }}
-          release_name: MyLib ${{ github.event.inputs.versionName }}
+          release_name: version ${{ github.event.inputs.versionName }}
           draft: true
           prerelease: false
