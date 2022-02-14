@@ -51,6 +51,7 @@ jobs:
           git tag -a $TAG -m "Release v$TAG"
           git push origin $TAG
         env:
+          token: ${{ secrets.PAT }}
           TAG: ${{ github.event.inputs.versionName }}
 
       - name: Create Release on GitHub
@@ -59,6 +60,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          token: ${{ secrets.PAT }}
           tag_name: ${{ github.event.inputs.versionName }}
           release_name: MyLib ${{ github.event.inputs.versionName }}
           draft: true
