@@ -60,8 +60,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token: ${{ secrets.PAT }}
           tag_name: ${{ github.event.inputs.versionName }}
           release_name: version ${{ github.event.inputs.versionName }}
-          draft: true
+          draft: false
           prerelease: false
