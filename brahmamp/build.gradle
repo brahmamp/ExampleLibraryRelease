@@ -9,8 +9,11 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 31
-        versionCode VERSION_CODE.toInteger()
-        versionName VERSION_NAME
+        versionCode 6
+        versionName "1.0.5"
+        version "V 1.0.5"
+       // versionCode VERSION_CODE.toInteger()
+       // versionName VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
