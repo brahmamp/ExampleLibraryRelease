@@ -22,8 +22,8 @@ jobs:
       - name: Read Version Name
         id: vars
         run: |
-          echo ::set-output name=version_number::"Version is $(grep "version" ./simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\')"
-      
+          echo ::set-output name=version_number::"Version is $(grep "version" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\')"
+        
       - name: Set release name
         run: echo ::set-env name=RELEASE_NAME::$(echo ${GITHUB_REF:11}) >> $GITHUB_ENV
         
@@ -32,13 +32,4 @@ jobs:
         with:
           arguments: build
 
-      - name: Create Release on GitHub
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.vars.outputs.version_number }}
-          release_name: version ${{ steps.vars.outputs.version_number }}
-          draft: false
-          prerelease: false
+      
