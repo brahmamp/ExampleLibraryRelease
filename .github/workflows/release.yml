@@ -25,7 +25,7 @@ jobs:
           echo ::set-output name=version_number::"Version is $(grep "version" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\')"
         
       - name: Set release name
-        run: echo ::set-env name=RELEASE_NAME::$(echo ${GITHUB_REF:11}) >> $GITHUB_ENV
+        run: echo ::set-env name=RELEASE_NAME::$(echo ${GITHUB_REF##*/}) >> $GITHUB_ENV
         
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
