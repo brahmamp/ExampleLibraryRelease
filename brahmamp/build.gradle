@@ -11,7 +11,7 @@ android {
         targetSdk 31
         versionCode 6
         versionName "1.0.5"
-        version "V 1.0.5"
+        version "1.0.5"
        // versionCode VERSION_CODE.toInteger()
        // versionName VERSION_NAME
 
