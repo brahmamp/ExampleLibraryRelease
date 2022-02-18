@@ -20,7 +20,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Read Version Name
-        run: grep "versionName" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\'
+        run: grep "version" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\'
         
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
@@ -33,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ (grep "versionName" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\') }}
-          release_name: version ${{ grep "versionName" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\' }}
+          tag_name: ${{ grep "version" simplelibrary/build.gradle | awk '{print $2}' }}
+          release_name: version ${{ grep "version" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\' }}
           draft: false
           prerelease: false
