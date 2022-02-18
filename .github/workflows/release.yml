@@ -19,6 +19,9 @@ jobs:
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
 
+      - name: Read Version Name
+        run: grep "versionName" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\'
+        
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -30,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event.inputs.versionName }}
-          release_name: version ${{ github.event.inputs.versionName }}
+          tag_name: ${{ grep "versionName" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\' }}
+          release_name: version ${{ grep "versionName" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\' }}
           draft: false
           prerelease: false
