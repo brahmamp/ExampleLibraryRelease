@@ -22,8 +22,8 @@ jobs:
       - name: Read Version Name
         id: vars
         run: |
-          echo ::set-output name=version_no:: ./gradlew -q pV
-          echo ::set-output name=version_number::"Version is $(grep "version" simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\')"
+          echo ::set-output name=version_no::./gradlew -q pV
+          echo ::set-output name=version_number::"Version is $(grep "version" ./simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\')"
         
       - name: Set release name
         run: echo ::set-env name=RELEASE_NAME::$(echo ${GITHUB_REPOSITORY#*/}) >> $GITHUB_ENV
