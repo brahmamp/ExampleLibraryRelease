@@ -32,6 +32,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    task printVersion {
+        doLast {
+            println project.version
+        }
+    }
 }
 
 dependencies {
