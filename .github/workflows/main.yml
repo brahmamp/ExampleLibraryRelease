@@ -7,6 +7,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
+    
+      - name: Grant Permission to Execute Gradle
+        run: chmod +x gradlew
+    
       - name: Generate build number
         id: buildnumber
         run: |
