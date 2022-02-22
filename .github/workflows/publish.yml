@@ -1,6 +1,6 @@
 name: Publish
 on:
-  release
+  push
 
 jobs:
   publish:
@@ -20,7 +20,15 @@ jobs:
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
 
-      - name: Generate build number
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+
+      - name: bump version number
+        run: bash ./gradlew versionPatch
+
+      - name: read version number
         id: buildnumber
         run: |
           echo ::set-output name=versionName::$(./gradlew -q pV)
@@ -40,23 +48,23 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
-#      - name: Create and push tag
-#        run: |
-#          git config --global user.email "brahmam.putta@gmail.com"
-#          git config --global user.name "$GITHUB_ACTOR"
-#          git tag -a $TAG -m "Release v$TAG"
-#          git push origin $TAG
-#        env:
-#          token: ${{ secrets.PAT }}
-#          TAG: ${{ github.event.inputs.versionName }}
-#
-#      - name: Create Release on GitHub
-#        id: create_release
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: ${{ github.event.inputs.versionName }}
-#          release_name: version ${{ github.event.inputs.versionName }}
-#          draft: false
-#          prerelease: false
+      - name: Create and push tag
+        run: |
+          git config --global user.email "brahmam.putta@gmail.com"
+          git config --global user.name "$GITHUB_ACTOR"
+          git tag -a $TAG -m "Release v$TAG"
+          git push origin $TAG
+        env:
+          token: ${{ secrets.PAT }}
+          TAG: ${{ steps.buildnumber.outputs.versionName }}
+
+      - name: Create Release on GitHub
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.buildnumber.outputs.versionName }}
+          release_name: version ${{ steps.buildnumber.outputs.versionName }}
+          draft: false
+          prerelease: false
