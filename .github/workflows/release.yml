@@ -1,10 +1,5 @@
 name: Release
-on: 
-  workflow_dispatch:
-  workflow_run:
-    workflows: [ "Release" ]
-    branches: [ main ]
-    types: [ released ]
+on: push
 
 jobs:
   publish:
@@ -24,18 +19,38 @@ jobs:
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
 
-      - name: Read Version Name
-        id: vars
-        run: |
-          echo ::set-output name=version_no::./gradlew -q pV
-          echo ::set-output name=version_number::"Version is $(grep "version" ./simplelibrary/build.gradle | awk '{print $2}' | tr -d \''"\')"
-        
-      - name: Set release name
-        run: echo ::set-env name=RELEASE_NAME::$(echo ${GITHUB_REPOSITORY#*/}) >> $GITHUB_ENV
-        
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
+
+      - name: bump version number
+        run: bash ./gradlew bumpPatch
+
+      - name: read version number
+        id: buildnumber
+        run: |
+          echo ::set-output name=versionName::$(./gradlew -q pV)
+
+      - name: Create and push tag
+        run: |
+          git config --global user.email "brahmam.putta@gmail.com"
+          git config --global user.name "$GITHUB_ACTOR"
+          git tag -a $TAG -m "Release v$TAG"
+          git push origin $TAG
+        env:
+          token: ${{ secrets.PAT }}
+          TAG: ${{ steps.buildnumber.outputs.versionName }}
+
+      - name: Create Release on GitHub
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.buildnumber.outputs.versionName }}
+          release_name: version ${{ steps.buildnumber.outputs.versionName }}
+          draft: false
+          prerelease: false
 
       
