@@ -1,7 +1,9 @@
 name: Publish
 on:
-  release:
-    types: [ released ]
+  workflow_run:
+    workflows: [ "Release" ]
+    branches: [ main ]
+    types: [ completed ]
 
 jobs:
   publish:
