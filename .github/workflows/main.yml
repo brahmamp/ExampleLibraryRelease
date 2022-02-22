@@ -19,11 +19,14 @@ jobs:
     
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
+        
+      - name: build release
+        run: bash ./gradlew bumpPatch
     
       - name: Generate build number
         id: buildnumber
         run: |
-            echo ::set-output name=version_no::$(./gradlew bumpPatch)
+            echo ::set-output name=version_no::$(./gradlew -q pV)
       - name: Get version
         run: echo "The version is ${{ steps.buildnumber.outputs.version_no }}"
 
