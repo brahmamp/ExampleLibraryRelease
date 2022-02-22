@@ -1,6 +1,5 @@
 name: Publish
-on:
-  push
+on: push
 
 jobs:
   publish:
@@ -39,7 +38,7 @@ jobs:
           ./gradlew publish --no-daemon --no-parallel
           echo "Published✅"
           echo "Releasing repository...🚀"
-          ./gradlew closeAndReleaseRepository
+          ./gradlew closeAndReleaseRepository --repository iogithubbrahmamp-1017
           echo "Released✅"
         env:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ steps.buildnumber.outputs.versionName }}
