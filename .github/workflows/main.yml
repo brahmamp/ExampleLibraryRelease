@@ -1,0 +1,14 @@
+name: Release
+on: push
+
+jobs:
+  publish:
+    name: Release
+    runs-on: macos-latest
+
+    steps:
+      - name: Generate build number
+        id: buildnumber
+        run: |
+            echo ::set-output name=version_no::./gradlew bumpPatch
+
