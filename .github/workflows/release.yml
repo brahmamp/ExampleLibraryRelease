@@ -1,5 +1,10 @@
 name: Release
-on: push
+on: 
+  workflow_dispatch:
+  workflow_run:
+    workflows: [ "Release" ]
+    branches: [ main ]
+    types: [ released ]
 
 jobs:
   publish:
