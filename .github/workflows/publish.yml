@@ -1,10 +1,7 @@
 name: Publish
 on:
-  workflow_dispatch:
-    workflow_run:
-      workflows: [ "Release" ]
-      branches: [ main ]
-      types: [ released ]
+  release:
+    types: [ released ]
 
 jobs:
   publish:
@@ -35,7 +32,7 @@ jobs:
           ./gradlew publish --no-daemon --no-parallel
           echo "Published✅"
           echo "Releasing repository...🚀"
-          ./gradlew closeAndReleaseRepository --repository iogithubbrahmamp-1013
+          ./gradlew closeAndReleaseRepository
           echo "Released✅"
         env:
           ORG_GRADLE_PROJECT_VERSION_NAME: ${{ steps.buildnumber.outputs.versionName }}

@@ -25,7 +25,7 @@ jobs:
           arguments: build
 
       - name: bump version number
-        run: bash ./gradlew bumpPatch
+        run: bash ./gradlew versionPatch
 
       - name: read version number
         id: buildnumber
