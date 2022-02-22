@@ -11,4 +11,6 @@ jobs:
         id: buildnumber
         run: |
             echo ::set-output name=version_no::./gradlew bumpPatch
+      - name: Get version
+        run: echo "The version is ${{ steps.buildnumber.outputs.version_no }}"
 
