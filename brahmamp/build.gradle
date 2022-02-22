@@ -10,9 +10,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 31
-        versionCode 6
         versionName androidAutoVersion.versionName
-        version androidAutoVersion.versionCode
+        versionCode androidAutoVersion.versionCode
        // versionCode VERSION_CODE.toInteger()
        // versionName VERSION_NAME
 
@@ -35,7 +34,7 @@ android {
     }
     task printVersion {
         doLast {
-            println project.version
+            println android.defaultConfig.versionName
         }
     }
 }
