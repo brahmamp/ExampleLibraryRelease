@@ -1,5 +1,7 @@
 name: Publish
-on: push
+on:
+  release:
+    types: [released]
 
 jobs:
   publish:
@@ -19,13 +21,13 @@ jobs:
       - name: Grant Permission to Execute Gradle
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
+#      - name: Build with Gradle
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: build
 
-      - name: bump version number
-        run: bash ./gradlew versionPatch
+#      - name: bump version number
+#        run: bash ./gradlew versionPatch
 
       - name: read version number
         id: buildnumber

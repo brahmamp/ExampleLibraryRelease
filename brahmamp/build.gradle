@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 31
-        versionName androidAutoVersion.versionName
-        versionCode androidAutoVersion.versionCode
+        versionName "0.0.16"
+        versionCode 16
        // versionCode VERSION_CODE.toInteger()
        // versionName VERSION_NAME
 
